@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Clientes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Clientes Registrados</h2>
+    <a href="/clientes/nuevo" class="btn btn-success mb-3">Agregar Cliente</a>
+    <a href="/" class="btn btn-secondary mb-3 me-2">Volver al inicio</a>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Cédula</th>
+            <th>Correo</th>
+            <th>Teléfono</th>
+            <th>Dirección</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cliente : ${clientes}">
+            <td th:text="${cliente.nombreCompleto}">Nombre</td>
+            <td th:text="${cliente.cedula}">Cédula</td>
+            <td th:text="${cliente.correo}">Correo</td>
+            <td th:text="${cliente.telefono}">Teléfono</td>
+            <td th:text="${cliente.direccion}">Dirección</td>
+            <td th:text="${cliente.estadoCliente}">Estado</td>
+            <td>
+                <a th:href="@{/clientes/editar/{id}(id=${cliente.id})}" class="btn btn-warning btn-sm">Editar</a>
+                <a th:href="@{/clientes/eliminar/{id}(id=${cliente.id})}" class="btn btn-danger btn-sm"
+                   onclick="return confirm('¿Estás seguro que deseas eliminar este cliente?');">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
