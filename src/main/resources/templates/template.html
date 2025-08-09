@@ -1,0 +1,54 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="utf-8">
+  <title>Mi tienda</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+    crossorigin="anonymous">
+</head>
+<body>
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="navbar">
+      <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/}">TallerAutos</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarText" aria-controls="navbarText"
+                aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link" th:href="@{/}">Home</a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/clientes/lista}">Clientes</a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/vehiculos/lista}">Vehículos</a></li>
+            <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+              <a class="nav-link" th:href="@{/usuarios/lista}">Usuarios</a>
+            </li>
+          </ul>
+
+
+          <div class="ms-auto d-flex align-items-center gap-2">
+            <a class="nav-link" th:href="@{/login}" sec:authorize="isAnonymous()">Login</a>
+
+            <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
+              <button type="submit" class="btn btn-danger btn-sm">Cerrar sesión</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-pprn3073KE6tl6uHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+          crossorigin="anonymous"></script>
+</body>
+</html>

@@ -6,15 +6,16 @@ package com.mycompany.tallerautos.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+
 /**
  *
- * @author raulp
+ * @author Usuario
  */
 @Controller
-public class InicioController {
+public class HomeController {
 
-    @GetMapping("/")
-    public String inicio() {
-        return "index";
+    @GetMapping({"/", "/home"})
+    public String home() {
+        return "home"; 
     }
 }

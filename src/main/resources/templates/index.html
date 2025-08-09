@@ -15,9 +15,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <h1 class="mb-4">Bienvenido al sistema del Taller de Autos 🚗</h1>
 
     <div class="d-grid gap-3 col-6 mx-auto">
+        <a th:href="@{/usuarios/lista}" sec:authorize="hasRole('ADMIN')">Usuarios</a>
         <a href="/clientes/nuevo" class="btn btn-primary btn-lg">Registrar Cliente</a>
         <a href="/clientes/lista" class="btn btn-success btn-lg">Ver Lista de Clientes</a>
         <a href="/vehiculos/nuevo" class="btn btn-warning btn-lg">Registrar Vehículo</a>
+        <a th:href="@{/logout}">Cerrar sesión</a>
     </div>
 </div>
 </body>
