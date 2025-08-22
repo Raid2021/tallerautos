@@ -1,18 +1,14 @@
 package com.mycompany.tallerautos;
 
+import com.mycompany.tallerautos.modelo.Rol;
+import com.mycompany.tallerautos.modelo.Usuario;
+import com.mycompany.tallerautos.repositorio.RolRepository;
+import com.mycompany.tallerautos.repositorio.UsuarioRepository;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
-
-import org.springframework.security.crypto.password.PasswordEncoder; // <-- se queda porque lo usamos en el seed
-
-import com.mycompany.tallerautos.modelo.Usuario;
-import com.mycompany.tallerautos.modelo.Rol;
-import com.mycompany.tallerautos.repositorio.UsuarioRepository;
-import com.mycompany.tallerautos.repositorio.RolRepository;
-
-import java.util.HashSet;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 public class TallerautosApplication {
@@ -21,28 +17,39 @@ public class TallerautosApplication {
         SpringApplication.run(TallerautosApplication.class, args);
     }
 
-
     @Bean
-    CommandLineRunner initData(UsuarioRepository uRepo, RolRepository rRepo, PasswordEncoder enc){
-      return args -> {
-        Rol adminRole = rRepo.findByNombre("ROLE_ADMIN")
-            .orElseGet(() -> rRepo.save(new Rol(null, "ROLE_ADMIN")));
-        Rol userRole  = rRepo.findByNombre("ROLE_USER")
-            .orElseGet(() -> rRepo.save(new Rol(null, "ROLE_USER")));
+    CommandLineRunner initData(RolRepository rolRepo,
+                               UsuarioRepository usuarioRepo,
+                               PasswordEncoder enc) {
+        return args -> {
 
-        if(uRepo.findByUsername("admin").isEmpty()){
-          Usuario u = new Usuario();
-          u.setUsername("admin");
-          u.setPassword(enc.encode("admin"));
+            Rol adminRol = rolRepo.findByNombre("ADMIN").orElseGet(() -> {
+                Rol r = new Rol();
+                r.setNombre("ADMIN");
+                return rolRepo.save(r);
+            });
 
-          if (u.getRoles() == null) {
-            u.setRoles(new HashSet<>());
-          }
-          u.getRoles().add(adminRole);
-          u.getRoles().add(userRole);
+            Rol mecanicoRol = rolRepo.findByNombre("MECANICO").orElseGet(() -> {
+                Rol r = new Rol();
+                r.setNombre("MECANICO");
+                return rolRepo.save(r);
+            });
 
-          uRepo.save(u);
-        }
-      };
+            Rol clienteRol = rolRepo.findByNombre("CLIENTE").orElseGet(() -> {
+                Rol r = new Rol();
+                r.setNombre("CLIENTE");
+                return rolRepo.save(r);
+            });
+
+            usuarioRepo.findByUsername("admin@local").orElseGet(() -> {
+                Usuario u = new Usuario();
+                u.setNombre("Administrador");           
+                u.setUsername("admin@local");
+                u.setPassword(enc.encode("admin"));     
+                u.setActivo(true);
+                u.getRoles().add(adminRol);
+                return usuarioRepo.save(u);
+            });
+        };
     }
 }

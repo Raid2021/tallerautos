@@ -29,10 +29,10 @@ public class UsuarioController {
         this.usuarioRepo = usuarioRepo; this.rolRepo = rolRepo; this.enc = enc;
     }
 
-    @GetMapping("/lista")
+    @GetMapping("/lista")  
     public String lista(Model model){
         model.addAttribute("usuarios", usuarioRepo.findAll());
-        return "usuario/lista";
+        return "usuario/lista"; 
     }
 
     @GetMapping("/nuevo")
@@ -44,7 +44,7 @@ public class UsuarioController {
 
     @PostMapping("/guardar")
     public String guardar(@ModelAttribute("usuario") Usuario u, BindingResult br, Model model){
-        if(u.getId()==null){ // nuevo
+        if(u.getId()==null){ 
             u.setPassword(enc.encode(u.getPassword()));
         } else {
             var db = usuarioRepo.findById(u.getId()).orElseThrow();
@@ -68,3 +68,4 @@ public class UsuarioController {
         return "redirect:/usuarios/lista";
     }
 }
+

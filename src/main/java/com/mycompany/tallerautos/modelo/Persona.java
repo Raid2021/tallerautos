@@ -23,7 +23,7 @@ public class Persona {
         this.telefono = telefono;
     }
 
-    // Getters y Setters
+
     public String getNombreCompleto() {
         return nombreCompleto;
     }

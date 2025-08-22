@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.tallerautos.controlador;
+package com.mycompany.tallerautos.controller;
 import com.mycompany.tallerautos.modelo.Cliente;
 import com.mycompany.tallerautos.servicio.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;

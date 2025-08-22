@@ -6,11 +6,12 @@ package com.mycompany.tallerautos.repositorio;
 import com.mycompany.tallerautos.modelo.Cliente;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 /**
  *
  * @author raulp
  */
 @Repository
-public interface ClienteRepository extends CrudRepository<Cliente, Long> {
+public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
 }
